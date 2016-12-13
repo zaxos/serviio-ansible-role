@@ -9,6 +9,12 @@ Requirements
 ------------
 centos 7, ansible >=1.6
 
+Installation
+------------
+```
+$ ansible-galaxy install zaxos.serviio-ansible-role
+```
+
 Example Playbook
 ----------------
 ```yaml
@@ -16,7 +22,7 @@ Example Playbook
       vars:
         serviio_version: 1.8
       roles:
-         - role: serviio_ansible_role
+         - role: zaxos.serviio_ansible_role
 ```
 
 Role Variables

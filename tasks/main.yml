@@ -1,0 +1,78 @@
+---
+
+- name: Install Java package {{ serviio_java_package }}
+  yum: name={{ serviio_java_package }} state=present
+  when: serviio_install_java
+
+- name: Install epel repository
+  yum: name=epel-release state=latest
+
+- name: Install http://li.nux.ro Nux Dextop Repository
+  yum: name=http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm state=present
+
+- name: Install Adobe Linux Release rpm
+  yum: name=http://linuxdownload.adobe.com/linux/x86_64/adobe-release-x86_64-1.0-1.noarch.rpm state=present
+
+- name: Install other prerequesites
+  yum: name={{ item.package }} state=present
+  with_items: "{{ serviio_packages_EL }}"
+
+- name: Check if serviio is already installed
+  stat: path={{ serviio_install_path }}/serviio-{{ serviio_version }}
+  register: is_installed
+
+- name: Create group {{ serviio_group }}
+  group: name={{ serviio_group }} state=present
+
+- name: Create user {{ serviio_user }}
+  user: name={{ serviio_user }} groups={{ serviio_group }} state=present
+
+- name: Download and unarchive serviio-{{ serviio_version }}-linux.tar.gz at {{ serviio_install_path }}
+  unarchive: >
+    src={{ serviio_download_URL }}/serviio-{{ serviio_version }}-linux.tar.gz
+    dest={{ serviio_install_path }}
+    copy=no
+    creates={{ serviio_install_path }}/serviio-{{ serviio_version }}
+    mode=0754
+    owner={{ serviio_user }}
+    group={{ serviio_group }}
+  register: installed
+  when: is_installed.stat.exists == False
+
+- name: Ensure perimissions on {{ serviio_install_path }}/serviio-{{ serviio_version }}
+  file: >
+    path={{ serviio_install_path }}/serviio-{{ serviio_version }}
+    owner={{ serviio_user }}
+    group={{ serviio_group }}
+    state=directory
+    mode=0754
+    recurse=yes
+  when: is_installed.stat.exists or installed|changed
+  changed_when: false
+
+- name: Create symlink {{ serviio_install_path }}/serviio-{{ serviio_version }} to {{ serviio_install_path }}/{{ serviio_service_name }}
+  file: >
+    src={{ serviio_install_path }}/serviio-{{ serviio_version }}
+    dest={{ serviio_install_path }}/{{ serviio_service_name }}
+    state=link
+    mode=0754
+    owner={{ serviio_user }}
+    group={{ serviio_group }}
+  when: serviio_create_service
+
+- name: Configure service file {{ serviio_service_name }}.service
+  template: src=serviio.service.j2 dest=/etc/systemd/system/{{ serviio_service_name }}.service
+  when: serviio_create_service
+  register: service_installed
+
+- name: Perform daemon-reload
+  command: systemctl daemon-reload
+  when: service_installed|changed
+
+- name: Enable {{ serviio_service_name }} service on startup
+  service: name={{ serviio_service_name }} enabled=yes
+  when: serviio_enabled_on_startup and serviio_create_service
+
+- name: Start {{ serviio_service_name }} service
+  service: name={{ serviio_service_name }} state=started
+  when: serviio_create_service and serviio_start_service_after_install

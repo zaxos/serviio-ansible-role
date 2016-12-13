@@ -1,0 +1,12 @@
+[Unit]
+Description=Serviio Server Daemon
+After=syslog.target network.target
+
+[Service]
+User={{ serviio_user }}
+Group={{ serviio_group }}
+Type=simple
+ExecStart={{ serviio_install_path }}/{{ serviio_service_name }}/bin/serviio.sh
+
+[Install]
+WantedBy=multi-user.target

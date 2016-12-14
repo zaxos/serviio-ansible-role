@@ -7,7 +7,7 @@ Ansible role to install Serviio Media Streaming Server.
 
 Requirements
 ------------
-centos 7, ansible >=1.6
+centos 7, ansible >=1.6, selinux disabled
 
 Installation
 ------------

@@ -32,7 +32,7 @@ Role Variables
 The main variable:
 - `serviio_version`: serviio version to install (latest is 1.8)
 
-Some defaults (probably not requiring tampering)
+Some defaults (probably not requiring tampering):
 - `serviio_download_URL`: http://<i></i>download.serviio.org/releases
 - `serviio_install_java`: True
 - `serviio_java_package`: "java-1.8.0-openjdk"

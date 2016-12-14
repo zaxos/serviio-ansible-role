@@ -22,7 +22,7 @@ Example Playbook
       vars:
         serviio_version: 1.8
       roles:
-         - role: zaxos.serviio_ansible_role
+         - role: zaxos.serviio-ansible-role
 ```
 
 Role Variables

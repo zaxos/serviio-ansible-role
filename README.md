@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/zaxos/serviio-ansible-role.svg?branch=master)](https://travis-ci.org/zaxos/serviio-ansible-role)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-%20zaxos.serviio--ansible--role-blue.svg)](https://galaxy.ansible.com/zaxos/serviio-ansible-role/)
 
 serviio-ansible-role
 ===================

@@ -1,11 +1,10 @@
 ---
 
+- name: Install epel repository
+  yum: name=epel-release state=present
+
 - name: Install Java package {{ serviio_java_package }}
   yum: name={{ serviio_java_package }} state=present
-  when: serviio_install_java
-
-- name: Install epel repository
-  yum: name=epel-release state=latest
 
 - name: Install http://li.nux.ro Nux Dextop Repository
   yum: name=http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm state=present
@@ -33,7 +32,7 @@
     dest={{ serviio_install_path }}
     copy=no
     creates={{ serviio_install_path }}/serviio-{{ serviio_version }}
-    mode=0754
+    mode=o=r
     owner={{ serviio_user }}
     group={{ serviio_group }}
   register: installed
@@ -42,10 +41,10 @@
 - name: Ensure perimissions on {{ serviio_install_path }}/serviio-{{ serviio_version }}
   file: >
     path={{ serviio_install_path }}/serviio-{{ serviio_version }}
+    mode=o=r
     owner={{ serviio_user }}
     group={{ serviio_group }}
     state=directory
-    mode=0754
     recurse=yes
   when: is_installed.stat.exists or installed|changed
   changed_when: false
@@ -55,7 +54,6 @@
     src={{ serviio_install_path }}/serviio-{{ serviio_version }}
     dest={{ serviio_install_path }}/{{ serviio_service_name }}
     state=link
-    mode=0754
     owner={{ serviio_user }}
     group={{ serviio_group }}
   when: serviio_create_service

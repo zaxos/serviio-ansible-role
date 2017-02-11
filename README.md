@@ -8,8 +8,8 @@ Ansible role to install Serviio Media Streaming Server.
 
 Requirements
 ------------
-* centos 7
-* ansible >=1.6
+* centos/rhel 7
+* ansible >= 1.8
 * selinux disabled
 
 Installation
@@ -35,7 +35,6 @@ The main variable:
 
 Some defaults (probably not requiring tampering):
 - `serviio_download_URL`: http://<i></i>download.serviio.org/releases
-- `serviio_install_java`: True
 - `serviio_java_package`: "java-1.8.0-openjdk"
 - `serviio_install_path`: /opt
 - `serviio_user`: serviio
@@ -44,3 +43,7 @@ Some defaults (probably not requiring tampering):
 - `serviio_service_name`: serviio
 - `serviio_enabled_on_startup`: True
 - `serviio_start_service_after_install`: True
+
+Usage
+-----
+After installation, point your browser to: `http://IP_or_FQDN:23423/console`

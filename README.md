@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/zaxos/serviio-ansible-role.svg?branch=master)](https://travis-ci.org/zaxos/serviio-ansible-role)
-[![Ansible Galaxy](https://img.shields.io/badge/galaxy-%20zaxos.serviio--ansible--role-blue.svg)](https://galaxy.ansible.com/zaxos/serviio-ansible-role/)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-_zaxos.serviio--ansible--role-blue.svg)](https://galaxy.ansible.com/zaxos/serviio-ansible-role/)
 
 serviio-ansible-role
-===================
+====================
 
 Ansible role to install Serviio Media Streaming Server.
 
@@ -33,10 +33,14 @@ Role Variables
 The main variable:
 - `serviio_version`: serviio version to install (latest is 1.8)
 
+Some variables that require review:
+- `serviio_configure_firewalld`: True   
+By default firewalld will be installed and configured. Change to "False" if you don't want to use firewalld.
+- `serviio_install_path`: /opt
+
 Some defaults (probably not requiring tampering):
 - `serviio_download_URL`: http://<i></i>download.serviio.org/releases
 - `serviio_java_package`: "java-1.8.0-openjdk"
-- `serviio_install_path`: /opt
 - `serviio_user`: serviio
 - `serviio_group`: serviio
 - `serviio_create_service`: True

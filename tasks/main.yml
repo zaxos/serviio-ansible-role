@@ -63,6 +63,10 @@
   when: serviio_create_service
   register: service_installed
 
+- name: Configure firewalld
+  include: configure-firewalld.yml
+  when: serviio_configure_firewalld
+
 - name: Perform daemon-reload
   command: systemctl daemon-reload
   when: service_installed|changed

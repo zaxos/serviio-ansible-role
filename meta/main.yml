@@ -1,10 +1,10 @@
 galaxy_info:
   author: zaxos 
-  description: Ansible role for installing and configuring Serviio Media Streaming Server 
+  description: Ansible role to install Serviio Media Streaming Server 
 
   license: GPLv2
 
-  min_ansible_version: 1.8
+  min_ansible_version: 2.2
 
   platforms:
   - name: EL

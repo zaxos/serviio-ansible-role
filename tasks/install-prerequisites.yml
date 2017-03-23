@@ -1,0 +1,27 @@
+---
+
+- name: Install epel repository
+  yum:
+    name: epel-release
+    state: present
+
+- name: Install Java package {{ serviio_java_package }}
+  yum:
+    name: "{{ serviio_java_package }}"
+    state: present
+
+- name: Install http://li.nux.ro Nux Dextop Repository
+  yum:
+    name: http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
+    state: present
+
+- name: Install Adobe Linux Release rpm
+  yum:
+    name: http://linuxdownload.adobe.com/linux/x86_64/adobe-release-x86_64-1.0-1.noarch.rpm
+    state: present
+
+- name: Install other prerequisites
+  yum:
+    name: "{{ item.package }}"
+    state: present
+  with_items: "{{ serviio_packages_EL }}"

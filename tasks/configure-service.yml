@@ -1,0 +1,28 @@
+---
+
+- name: Create symlink {{ serviio_install_path }}/serviio-{{ serviio_version }} to {{ serviio_install_path }}/{{ serviio_service_name }}
+  file:
+    src: "{{ serviio_install_path }}/serviio-{{ serviio_version }}"
+    dest: "{{ serviio_install_path }}/{{ serviio_service_name }}"
+    state: link
+    owner: "{{ serviio_user }}"
+    group: "{{ serviio_group }}"
+
+- name: Configure service file {{ serviio_service_name }}.service
+  template:
+    src: serviio.service.j2
+    dest: "/etc/systemd/system/{{ serviio_service_name }}.service"
+
+- name: Enable {{ serviio_service_name }} service on startup
+  systemd:
+    name: "{{ serviio_service_name }}"
+    enabled: yes
+    daemon_reload: yes
+  when: serviio_enabled_on_startup
+
+- name: Start {{ serviio_service_name }} service
+  systemd:
+    name: "{{ serviio_service_name }}"
+    state: started
+    daemon_reload: yes
+  when: serviio_start_service_after_install

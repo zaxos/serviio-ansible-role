@@ -7,6 +7,7 @@ User={{ serviio_user }}
 Group={{ serviio_group }}
 Type=simple
 ExecStart={{ serviio_install_path }}/{{ serviio_service_name }}/bin/serviio.sh
+ExecStop={{ serviio_install_path }}/{{ serviio_service_name }}/bin/serviio.sh -stop
 
 [Install]
 WantedBy=multi-user.target

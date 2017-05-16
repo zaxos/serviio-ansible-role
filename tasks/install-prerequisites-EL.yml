@@ -5,9 +5,9 @@
     name: epel-release
     state: present
 
-- name: Install Java package {{ serviio_java_package }}
+- name: Install Java package {{ serviio_java_package_EL }}
   yum:
-    name: "{{ serviio_java_package }}"
+    name: "{{ serviio_java_package_EL }}"
     state: present
 
 - name: Install http://li.nux.ro Nux Dextop Repository

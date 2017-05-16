@@ -1,0 +1,12 @@
+---
+
+- name: Install Java package {{ serviio_java_package_Ubuntu }}
+  apt:
+    name: "{{ serviio_java_package_Ubuntu }}"
+    state: present
+
+- name: Install other prerequisites
+  apt:
+    name: "{{ item.package }}"
+    state: present
+  with_items: "{{ serviio_packages_Ubuntu }}"

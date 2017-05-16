@@ -8,7 +8,7 @@ Ansible role to install Serviio Media Streaming Server.
 
 Requirements
 ------------
-* centos/rhel 7
+* centos/rhel 7 or ubuntu 16.04
 * ansible >= 2.2
 * selinux disabled
 
@@ -35,12 +35,11 @@ The main variable:
 
 Some variables that require review:
 - `serviio_configure_firewalld`: True   
-By default firewalld will be installed and configured. Change to "False" if you don't want to use firewalld.
+By default firewalld will be installed, configured and enabled if CentOS/RedHat operating system is detected. Change to "False" if you don't want to use firewalld.
 - `serviio_install_path`: /opt
 
 Some defaults (probably not requiring tampering):
 - `serviio_download_URL`: http://<i></i>download.serviio.org/releases
-- `serviio_java_package`: "java-1.8.0-openjdk"
 - `serviio_user`: serviio
 - `serviio_group`: serviio
 - `serviio_create_service`: True

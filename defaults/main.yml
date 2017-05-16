@@ -4,8 +4,6 @@ serviio_version: 1.8
 
 serviio_configure_firewalld: True
 
-serviio_java_package: "java-1.8.0-openjdk"
-
 serviio_install_path: /opt
 serviio_user: serviio
 serviio_group: serviio
@@ -16,6 +14,9 @@ serviio_service_name: serviio
 serviio_enabled_on_startup: True
 serviio_start_service_after_install: True
 
+serviio_java_package_EL: "java-1.8.0-openjdk"
+serviio_java_package_Ubuntu: "openjdk-8-jre"
+
 serviio_packages_EL:
  - {package: "librtmp"}
  - {package: "libass"}
@@ -23,3 +24,7 @@ serviio_packages_EL:
  - {package: "x265-libs"}
  - {package: "lame-mp3x"}
  - {package: "ffmpeg"}
+
+serviio_packages_Ubuntu:
+ - {package: "ffmpeg"}
+ - {package: "dcraw"}

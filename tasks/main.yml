@@ -1,8 +1,12 @@
 ---
 
-- name: Install prerequisites
-  include: install-prerequisites.yml
+- name: Install prerequisites (RedHat OS Family)
+  include: install-prerequisites-EL.yml
   when: ansible_os_family == "RedHat"
+
+- name: Install prerequisites (Ubuntu)
+  include: install-prerequisites-Ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Install serviio
   include: install-serviio.yml
@@ -13,4 +17,4 @@
 
 - name: Configure firewalld
   include: configure-firewalld.yml
-  when: serviio_configure_firewalld
+  when: serviio_configure_firewalld and ansible_os_family == "RedHat"

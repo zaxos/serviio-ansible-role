@@ -23,7 +23,7 @@ Example Playbook
 ```yaml
     - hosts: servers
       vars:
-        serviio_version: 1.8
+        serviio_version: 1.9
       roles:
         - role: zaxos.serviio-ansible-role
 ```
@@ -31,7 +31,7 @@ Example Playbook
 Role Variables
 --------------
 The main variable:
-- `serviio_version`: serviio version to install (latest is 1.8)
+- `serviio_version`: serviio version to install (latest is 1.9)
 
 Some variables that require review:
 - `serviio_configure_firewalld`: True   

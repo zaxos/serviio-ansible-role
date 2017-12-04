@@ -1,9 +1,13 @@
 ---
 
-- name: Install epel repository
+- name: Add epel repository
   yum:
-    name: epel-release
+    name: "{{ epel_url }}"
     state: present
+
+- name: Add epel repository signing key
+  rpm_key:
+    key: "{{ epel_key }}"
 
 - name: Install Java package {{ serviio_java_package_EL }}
   yum:
